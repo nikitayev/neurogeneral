@@ -6,9 +6,6 @@ program Neurogeneral;
 uses
   Vcl.Forms,
   mainform in 'mainform.pas' {MainFormExtrapolation},
-  calc_utils in '..\utils\calc_utils.pas',
-  u_uidataselection in '..\utils\u_uidataselection.pas',
-  serialization_utils in '..\utils\serialization_utils.pas',
   ablas in 'alglib\ablas.pas',
   ablasf in 'alglib\ablasf.pas',
   ap in 'alglib\ap.pas',
@@ -33,7 +30,14 @@ uses
   svd in 'alglib\svd.pas',
   trfac in 'alglib\trfac.pas',
   trlinsolve in 'alglib\trlinsolve.pas',
-  xblas in 'alglib\xblas.pas';
+  xblas in 'alglib\xblas.pas',
+  calc_utils in 'utils\calc_utils.pas',
+  clasterization_utils in 'utils\clasterization_utils.pas',
+  serialization_utils in 'utils\serialization_utils.pas',
+  TeachingProgressUnit in 'utils\TeachingProgressUnit.pas' {TeachingProgressForm},
+  U_hrv_neurontrain_MT in 'utils\U_hrv_neurontrain_MT.pas',
+  U_LoadCSV in 'utils\U_LoadCSV.pas',
+  u_uidataselection in 'utils\u_uidataselection.pas';
 
 {$R *.res}
 
@@ -41,5 +45,6 @@ begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TMainFormExtrapolation, MainFormExtrapolation);
+  Application.CreateForm(TTeachingProgressForm, TeachingProgressForm);
   Application.Run;
 end.
