@@ -10,7 +10,8 @@ type
     dstColToChange - измен€ема€ независима€ переменна€ дл€ построени€ графика зависимой переменной
     dstFixedCols - фиксированные столбцы, значени€ в которых не будут измен€тьс€
   }
-  TDataSelectionType = (dstNone, dstResultCol, dstBaseRow, dstColToChange, dstFixedCols);
+  TDataSelectionType = (dstNone, dstResultCol, dstBaseRow, dstColToChange,
+    dstFixedCols);
   TSetDataSelectionType = set of TDataSelectionType;
 
 var
@@ -32,8 +33,10 @@ type
 
   TDataSelection = class(TList<TDataSelectionItem>)
   public
-    function Add(aDataSelectionType: TDataSelectionType; X, Y: Integer): Integer;
-    function IndexOf(aDataSelectionType: TDataSelectionType; X, Y: Integer): Integer;
+    function Add(aDataSelectionType: TDataSelectionType; X, Y: Integer)
+      : Integer;
+    function IndexOf(aDataSelectionType: TDataSelectionType;
+      X, Y: Integer): Integer;
     function HasType(aDataSelectionType: TDataSelectionType): boolean;
     function HasAllTypes: boolean;
     procedure ClearByType(aDataSelectionType: TDataSelectionType);
@@ -41,12 +44,14 @@ type
     function GetValueOfType(aDataSelectionType: TDataSelectionType): Integer;
   end;
 
-function AsDataSelectionItem(aDataSelectionType: TDataSelectionType; X, Y: Integer): TDataSelectionItem;
+function AsDataSelectionItem(aDataSelectionType: TDataSelectionType;
+  X, Y: Integer): TDataSelectionItem;
 function GetCellColor(const aValueType: TSetDataSelectionType): TColor;
 
 implementation
 
-function AsDataSelectionItem(aDataSelectionType: TDataSelectionType; X, Y: Integer): TDataSelectionItem;
+function AsDataSelectionItem(aDataSelectionType: TDataSelectionType;
+  X, Y: Integer): TDataSelectionItem;
 begin
   result.DataSelectionType := aDataSelectionType;
   result.X := X;
@@ -62,7 +67,8 @@ begin
     Inc(result);
 end;
 
-function GetFirstElementFromSet(const aValueType: TSetDataSelectionType): TDataSelectionType;
+function GetFirstElementFromSet(const aValueType: TSetDataSelectionType)
+  : TDataSelectionType;
 var
   M: TDataSelectionType;
 begin
@@ -86,7 +92,8 @@ end;
 
 { TDataSelection }
 
-function TDataSelection.Add(aDataSelectionType: TDataSelectionType; X, Y: Integer): Integer;
+function TDataSelection.Add(aDataSelectionType: TDataSelectionType;
+  X, Y: Integer): Integer;
 begin
   case aDataSelectionType of
     dstResultCol, dstBaseRow, dstColToChange:
@@ -106,10 +113,12 @@ begin
       Delete(i);
 end;
 
-function TDataSelection.GetValueOfType(aDataSelectionType: TDataSelectionType): Integer;
+function TDataSelection.GetValueOfType(aDataSelectionType
+  : TDataSelectionType): Integer;
 var
   i: Integer;
 begin
+  result := -1;
   for i := 0 to Count - 1 do
     if (Items[i].DataSelectionType = aDataSelectionType) then
     begin
@@ -131,10 +140,12 @@ begin
   M := [];
   for i := 0 to Count - 1 do
     M := M + [Items[i].DataSelectionType];
-  result := (dstResultCol in M) and (dstBaseRow in M) and (dstColToChange in M) and (dstFixedCols in M);
+  result := (dstResultCol in M) and (dstBaseRow in M) and (dstColToChange in M)
+    and (dstFixedCols in M);
 end;
 
-function TDataSelection.HasType(aDataSelectionType: TDataSelectionType): boolean;
+function TDataSelection.HasType(aDataSelectionType: TDataSelectionType)
+  : boolean;
 var
   i: Integer;
 begin
@@ -147,7 +158,8 @@ begin
     end;
 end;
 
-function TDataSelection.IndexOf(aDataSelectionType: TDataSelectionType; X, Y: Integer): Integer;
+function TDataSelection.IndexOf(aDataSelectionType: TDataSelectionType;
+  X, Y: Integer): Integer;
 var
   i: Integer;
 begin

@@ -1,6 +1,15 @@
 // JCL_DEBUG_EXPERT_GENERATEJDBG OFF
 // JCL_DEBUG_EXPERT_INSERTJDBG OFF
 // JCL_DEBUG_EXPERT_DELETEMAPFILE OFF
+
+{
+  https://github.com/nikitayev/neurogeneral.git
+
+  JCL & JVCL:
+  https://github.com/project-jedi/jedi.git/
+  https://github.com/project-jedi/jcl.git/trunk
+  https://github.com/project-jedi/jvcl.git/trunk
+}
 program Neurogeneral;
 
 uses

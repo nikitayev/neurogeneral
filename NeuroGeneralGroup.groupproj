@@ -1,0 +1,60 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{AF36A7CB-98CA-469A-A6E2-191FE4571ACD}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="Neurogeneral.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="NeuroExtrapolation\NeuroExtrapolation.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="NeuroClassificator\NeuroClassificator.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="Neurogeneral">
+        <MSBuild Projects="Neurogeneral.dproj"/>
+    </Target>
+    <Target Name="Neurogeneral:Clean">
+        <MSBuild Projects="Neurogeneral.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="Neurogeneral:Make">
+        <MSBuild Projects="Neurogeneral.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="NeuroExtrapolation">
+        <MSBuild Projects="NeuroExtrapolation\NeuroExtrapolation.dproj"/>
+    </Target>
+    <Target Name="NeuroExtrapolation:Clean">
+        <MSBuild Projects="NeuroExtrapolation\NeuroExtrapolation.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="NeuroExtrapolation:Make">
+        <MSBuild Projects="NeuroExtrapolation\NeuroExtrapolation.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="NeuroClassificator">
+        <MSBuild Projects="NeuroClassificator\NeuroClassificator.dproj"/>
+    </Target>
+    <Target Name="NeuroClassificator:Clean">
+        <MSBuild Projects="NeuroClassificator\NeuroClassificator.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="NeuroClassificator:Make">
+        <MSBuild Projects="NeuroClassificator\NeuroClassificator.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="Neurogeneral;NeuroExtrapolation;NeuroClassificator"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="Neurogeneral:Clean;NeuroExtrapolation:Clean;NeuroClassificator:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="Neurogeneral:Make;NeuroExtrapolation:Make;NeuroClassificator:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>

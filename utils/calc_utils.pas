@@ -138,8 +138,8 @@ begin
         aGrid.Cells[j, i + 1] := zParseSL[j];
     end;
     // auto shrink
-    for j := 0 to aGrid.ColCount - 1 do
-      aGrid.ColWidths[j] := GetMaxColTextWidth(aGrid, 1, j);
+    //for j := 0 to aGrid.ColCount - 1 do
+    //  aGrid.ColWidths[j] := GetMaxColTextWidth(aGrid, 1, j);
   finally
     aGrid.Canvas.Unlock;
     FreeAndNil(zParseSL);

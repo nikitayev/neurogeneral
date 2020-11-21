@@ -3,8 +3,10 @@ unit mainform;
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Menus, Vcl.Grids, Vcl.ValEdit, Vcl.ComCtrls, Vcl.ExtCtrls,
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
+  System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Menus, Vcl.Grids, Vcl.ValEdit,
+  Vcl.ComCtrls, Vcl.ExtCtrls,
   Ap, mlpbase, calc_utils, u_uidataselection, Vcl.StdActns, System.Actions,
   Vcl.ActnList, serialization_utils;
 
@@ -45,10 +47,13 @@ type
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure NSolveClick(Sender: TObject);
-    procedure sgDataTeachingSrcMouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer);
+    procedure sgDataTeachingSrcMouseMove(Sender: TObject; Shift: TShiftState;
+      X, Y: Integer);
     procedure sgDataTeachingSrcMouseLeave(Sender: TObject);
-    procedure sgDataTeachingSrcDrawCell(Sender: TObject; ACol, ARow: Integer; Rect: TRect; State: TGridDrawState);
-    procedure sgDataTeachingSrcMouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+    procedure sgDataTeachingSrcDrawCell(Sender: TObject; ACol, ARow: Integer;
+      Rect: TRect; State: TGridDrawState);
+    procedure sgDataTeachingSrcMouseUp(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
     procedure N1Click(Sender: TObject);
     procedure N2Click(Sender: TObject);
     procedure N3Click(Sender: TObject);
@@ -78,7 +83,8 @@ uses Math, ClipBrd;
 
 {$R *.dfm}
 
-procedure TMainFormExtrapolation.FormClose(Sender: TObject; var Action: TCloseAction);
+procedure TMainFormExtrapolation.FormClose(Sender: TObject;
+  var Action: TCloseAction);
 begin
   MLPFree(HNetwork);
   FreeAndNil(HDataSelection);
@@ -106,7 +112,8 @@ procedure TMainFormExtrapolation.N11Click(Sender: TObject);
 begin
   if (HDataSelection.HasAllTypes) then
   begin
-    MakeUnifySportsmenMatrix(sgDataTeachingSrc, sgDataPredictionSrc, HDataSelection);
+    MakeUnifySportsmenMatrix(sgDataTeachingSrc, sgDataPredictionSrc,
+      HDataSelection);
     NSolveClick(Sender);
   end;
 end;
@@ -187,7 +194,8 @@ begin
   try
     if (HDataSelection.HasAllTypes) then
     begin
-      ConstructMatrixFromOneGrid(sgDataTeachingSrc, HDataSelection.GetValueOfType(dstResultCol), zlXY);
+      ConstructMatrixFromOneGrid(sgDataTeachingSrc,
+        HDataSelection.GetValueOfType(dstResultCol), zlXY);
       UpdateNeuroOptionsFromForm;
       HOptions.lPoints := Length(zlXY);
       HOptions.Layer1PtsCount := sgDataTeachingSrc.ColCount - 2;
@@ -201,8 +209,8 @@ begin
   end;
 end;
 
-procedure TMainFormExtrapolation.sgDataTeachingSrcDrawCell(Sender: TObject; ACol, ARow: Integer; Rect: TRect;
-  State: TGridDrawState);
+procedure TMainFormExtrapolation.sgDataTeachingSrcDrawCell(Sender: TObject;
+  ACol, ARow: Integer; Rect: TRect; State: TGridDrawState);
 var
   zGrid: TStringGrid;
 begin
@@ -223,7 +231,8 @@ begin
   HRowSelected := -1;
 end;
 
-procedure TMainFormExtrapolation.sgDataTeachingSrcMouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer);
+procedure TMainFormExtrapolation.sgDataTeachingSrcMouseMove(Sender: TObject;
+  Shift: TShiftState; X, Y: Integer);
 var
   zGrid: TStringGrid;
 begin
@@ -233,31 +242,37 @@ begin
     zGrid.MouseToCell(X, Y, HColSelected, HRowSelected);
     case HCurrentDataSelectionType of
       dstResultCol, dstColToChange:
-        HDataSelection.Add(HCurrentDataSelectionType, HColSelected - 1, HRowSelected - 1);
+        HDataSelection.Add(HCurrentDataSelectionType, HColSelected - 1,
+          HRowSelected - 1);
       dstFixedCols:
         begin
           if (HLastSelectedFixedCol <> -1) then
             HDataSelection.Delete(HLastSelectedFixedCol);
-          if (HDataSelection.IndexOf(dstFixedCols, HColSelected - 1, HRowSelected - 1) = -1) then
-            HLastSelectedFixedCol := HDataSelection.Add(HCurrentDataSelectionType, HColSelected - 1, HRowSelected - 1)
+          if (HDataSelection.IndexOf(dstFixedCols, HColSelected - 1,
+            HRowSelected - 1) = -1) then
+            HLastSelectedFixedCol :=
+              HDataSelection.Add(HCurrentDataSelectionType, HColSelected - 1,
+              HRowSelected - 1)
           else
             HLastSelectedFixedCol := -1;
         end
     else
-      HDataSelection.Add(HCurrentDataSelectionType, HColSelected - 1, HRowSelected - 1);
+      HDataSelection.Add(HCurrentDataSelectionType, HColSelected - 1,
+        HRowSelected - 1);
     end;
 
     zGrid.Repaint;
   end;
 end;
 
-procedure TMainFormExtrapolation.sgDataTeachingSrcMouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState;
-  X, Y: Integer);
+procedure TMainFormExtrapolation.sgDataTeachingSrcMouseUp(Sender: TObject;
+  Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 var
   zGrid: TStringGrid;
 begin
   zGrid := Sender as TStringGrid;
-  if (HCurrentDataSelectionType in [dstResultCol, dstBaseRow, dstColToChange]) then
+  if (HCurrentDataSelectionType in [dstResultCol, dstBaseRow, dstColToChange])
+  then
   begin
     HCurrentDataSelectionType := dstNone;
     HLastSelectedFixedCol := -1;
@@ -272,15 +287,21 @@ end;
 
 procedure TMainFormExtrapolation.UpdateNeuroOptionsFromForm;
 begin
-  HOptions.lMaxIts := StrToIntDef(vleNeuroPreferences.Values['Максимум итераций'], 300);
-  HOptions.lMaxStep := StrToFloatDef(vleNeuroPreferences.Values['Максимальный шаг'], 0.001);
-  HOptions.lRestarts := StrToIntDef(vleNeuroPreferences.Values['Рестартов'], 1000);
-  HOptions.lDecay := StrToFloatDef(vleNeuroPreferences.Values['Максимальная ошибка'], 0.001);
+  HOptions.lMaxIts := StrToIntDef(vleNeuroPreferences.Values
+    ['Максимум итераций'], 300);
+  HOptions.lMaxStep := StrToFloatDef(vleNeuroPreferences.Values
+    ['Максимальный шаг'], 0.001);
+  HOptions.lRestarts := StrToIntDef(vleNeuroPreferences.Values
+    ['Рестартов'], 1000);
+  HOptions.lDecay := StrToFloatDef(vleNeuroPreferences.Values
+    ['Максимальная ошибка'], 0.001);
   HOptions.lPoints := 0;
   HOptions.LayerCount := StrToIntDef(vleNeuroPreferences.Values['Слоёв'], 3);
   HOptions.Layer1PtsCount := 0;
-  HOptions.Layer2PtsCount := StrToIntDef(vleNeuroPreferences.Values['Нейронов во втором слое'], 8);
-  HOptions.Layer3PtsCount := StrToIntDef(vleNeuroPreferences.Values['Нейронов во третьем слое'], 8);
+  HOptions.Layer2PtsCount :=
+    StrToIntDef(vleNeuroPreferences.Values['Нейронов во втором слое'], 8);
+  HOptions.Layer3PtsCount :=
+    StrToIntDef(vleNeuroPreferences.Values['Нейронов во третьем слое'], 8);
   HOptions.OutPtsCount := 0;
   HOptions.IsClassificator := false;
 end;

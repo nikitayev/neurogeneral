@@ -1,9 +1,9 @@
 ﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <PropertyGroup>
-        <ProjectGuid>{F12439B1-6053-4CB7-82B4-9418953ABAA3}</ProjectGuid>
+        <ProjectGuid>{17BE8727-4803-491E-B8FB-D8FA48359366}</ProjectGuid>
         <ProjectVersion>18.8</ProjectVersion>
         <FrameworkType>VCL</FrameworkType>
-        <MainSource>Neurogeneral.dpr</MainSource>
+        <MainSource>NeuroExtrapolation.dpr</MainSource>
         <Base>True</Base>
         <Config Condition="'$(Config)'==''">Release</Config>
         <Platform Condition="'$(Platform)'==''">Win32</Platform>
@@ -47,7 +47,7 @@
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base)'!=''">
         <Icon_MainIcon>$(BDS)\bin\delphi_PROJECTICON.ico</Icon_MainIcon>
-        <SanitizedProjectName>Neurogeneral</SanitizedProjectName>
+        <SanitizedProjectName>NeuroExtrapolation</SanitizedProjectName>
         <DCC_Namespace>System;Xml;Data;Datasnap;Web;Soap;Vcl;Vcl.Imaging;Vcl.Touch;Vcl.Samples;Vcl.Shell;$(DCC_Namespace)</DCC_Namespace>
         <DCC_DcuOutput>.\$(Platform)\$(Config)</DCC_DcuOutput>
         <DCC_ExeOutput>.\$(Platform)\$(Config)</DCC_ExeOutput>
@@ -110,41 +110,43 @@
         </DelphiCompile>
         <DCCReference Include="mainform.pas">
             <Form>MainFormExtrapolation</Form>
+            <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="alglib\ablas.pas"/>
-        <DCCReference Include="alglib\ablasf.pas"/>
-        <DCCReference Include="alglib\ap.pas"/>
-        <DCCReference Include="alglib\bdsvd.pas"/>
-        <DCCReference Include="alglib\blas.pas"/>
-        <DCCReference Include="alglib\creflections.pas"/>
-        <DCCReference Include="alglib\densesolver.pas"/>
-        <DCCReference Include="alglib\hblas.pas"/>
-        <DCCReference Include="alglib\hqrnd.pas"/>
-        <DCCReference Include="alglib\linmin.pas"/>
-        <DCCReference Include="alglib\matgen.pas"/>
-        <DCCReference Include="alglib\matinv.pas"/>
-        <DCCReference Include="alglib\minlbfgs.pas"/>
-        <DCCReference Include="alglib\mlpbase.pas"/>
-        <DCCReference Include="alglib\mlptrain.pas"/>
-        <DCCReference Include="alglib\ortfac.pas"/>
-        <DCCReference Include="alglib\rcond.pas"/>
-        <DCCReference Include="alglib\reflections.pas"/>
-        <DCCReference Include="alglib\rotations.pas"/>
-        <DCCReference Include="alglib\safesolve.pas"/>
-        <DCCReference Include="alglib\sblas.pas"/>
-        <DCCReference Include="alglib\svd.pas"/>
-        <DCCReference Include="alglib\trfac.pas"/>
-        <DCCReference Include="alglib\trlinsolve.pas"/>
-        <DCCReference Include="alglib\xblas.pas"/>
-        <DCCReference Include="utils\calc_utils.pas"/>
-        <DCCReference Include="utils\clasterization_utils.pas"/>
-        <DCCReference Include="utils\serialization_utils.pas"/>
-        <DCCReference Include="utils\TeachingProgressUnit.pas">
+        <DCCReference Include="..\alglib\ablas.pas"/>
+        <DCCReference Include="..\alglib\ablasf.pas"/>
+        <DCCReference Include="..\alglib\ap.pas"/>
+        <DCCReference Include="..\alglib\bdsvd.pas"/>
+        <DCCReference Include="..\alglib\blas.pas"/>
+        <DCCReference Include="..\alglib\creflections.pas"/>
+        <DCCReference Include="..\alglib\densesolver.pas"/>
+        <DCCReference Include="..\alglib\hblas.pas"/>
+        <DCCReference Include="..\alglib\hqrnd.pas"/>
+        <DCCReference Include="..\alglib\linmin.pas"/>
+        <DCCReference Include="..\alglib\matgen.pas"/>
+        <DCCReference Include="..\alglib\matinv.pas"/>
+        <DCCReference Include="..\alglib\minlbfgs.pas"/>
+        <DCCReference Include="..\alglib\mlpbase.pas"/>
+        <DCCReference Include="..\alglib\mlptrain.pas"/>
+        <DCCReference Include="..\alglib\ortfac.pas"/>
+        <DCCReference Include="..\alglib\rcond.pas"/>
+        <DCCReference Include="..\alglib\reflections.pas"/>
+        <DCCReference Include="..\alglib\rotations.pas"/>
+        <DCCReference Include="..\alglib\safesolve.pas"/>
+        <DCCReference Include="..\alglib\sblas.pas"/>
+        <DCCReference Include="..\alglib\svd.pas"/>
+        <DCCReference Include="..\alglib\trfac.pas"/>
+        <DCCReference Include="..\alglib\trlinsolve.pas"/>
+        <DCCReference Include="..\alglib\xblas.pas"/>
+        <DCCReference Include="..\utils\calc_utils.pas"/>
+        <DCCReference Include="..\utils\clasterization_utils.pas"/>
+        <DCCReference Include="..\utils\serialization_utils.pas"/>
+        <DCCReference Include="..\utils\TeachingProgressUnit.pas">
             <Form>TeachingProgressForm</Form>
+            <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="utils\U_hrv_neurontrain_MT.pas"/>
-        <DCCReference Include="utils\U_LoadCSV.pas"/>
-        <DCCReference Include="utils\u_uidataselection.pas"/>
+        <DCCReference Include="..\utils\U_hrv_neurontrain_MT.pas"/>
+        <DCCReference Include="..\utils\U_LoadCSV.pas"/>
+        <DCCReference Include="..\utils\u_uidataselection.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
@@ -163,7 +165,7 @@
         <BorlandProject>
             <Delphi.Personality>
                 <Source>
-                    <Source Name="MainSource">Neurogeneral.dpr</Source>
+                    <Source Name="MainSource">NeuroExtrapolation.dpr</Source>
                 </Source>
                 <Excluded_Packages>
                     <Excluded_Packages Name="C:\Users\Public\Documents\Embarcadero\Studio\20.0\Bpl\JclVcl260.bpl">JEDI Code Library VCL package</Excluded_Packages>
@@ -179,13 +181,13 @@
                 </Excluded_Packages>
             </Delphi.Personality>
             <Deployment Version="3">
-                <DeployFile LocalName="Win32\Release\Neurogeneral.exe" Configuration="Release" Class="ProjectOutput">
+                <DeployFile LocalName="Win32\Release\NeuroExtrapolation.exe" Configuration="Release" Class="ProjectOutput">
                     <Platform Name="Win32">
-                        <RemoteName>Neurogeneral.exe</RemoteName>
+                        <RemoteName>NeuroExtrapolation.exe</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="Win32\Debug\Sportsmen.exe" Configuration="Debug" Class="ProjectOutput"/>
+                <DeployFile LocalName="Win32\Debug\NeuroExtrapolation.exe" Configuration="Debug" Class="ProjectOutput"/>
                 <DeployClass Name="AdditionalDebugSymbols">
                     <Platform Name="iOSSimulator">
                         <Operation>1</Operation>
