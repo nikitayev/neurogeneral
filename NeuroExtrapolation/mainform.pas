@@ -32,6 +32,11 @@ type
     sgDataPredictionResult: TStringGrid;
     PopupMenuResult: TPopupMenu;
     NCopyResults: TMenuItem;
+    NTeachingStart: TMenuItem;
+    NTeachingSaveTo: TMenuItem;
+    NTeachingLoadFrom: TMenuItem;
+    SaveDialog: TSaveDialog;
+    OpenDialog: TOpenDialog;
     procedure NInsertDataClick(Sender: TObject);
     procedure NInsertResultsClick(Sender: TObject);
     procedure NInsertAtPredictionClick(Sender: TObject);
@@ -40,6 +45,8 @@ type
     procedure FormShow(Sender: TObject);
     procedure NSolveClick(Sender: TObject);
     procedure NCopyResultsClick(Sender: TObject);
+    procedure NTeachingSaveToClick(Sender: TObject);
+    procedure NTeachingLoadFromClick(Sender: TObject);
   private
     { Private declarations }
     HNetwork: MultiLayerPerceptron;
@@ -168,6 +175,18 @@ begin
     SetLength(zlXY, 0);
     Screen.Cursor := crDefault;
   end;
+end;
+
+procedure TMainFormExtrapolation.NTeachingLoadFromClick(Sender: TObject);
+begin
+  if (SaveDialog.Execute(Self.Handle)) then
+    MLPUnserialize(SaveDialog.FileName, HNetwork);
+end;
+
+procedure TMainFormExtrapolation.NTeachingSaveToClick(Sender: TObject);
+begin
+  if (SaveDialog.Execute(Self.Handle)) then
+    MLPSerialize(HNetwork, SaveDialog.FileName);
 end;
 
 procedure TMainFormExtrapolation.UpdateNeuroOptionsFromForm;

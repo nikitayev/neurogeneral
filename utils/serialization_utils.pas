@@ -43,16 +43,11 @@ function CreateGuid: string;
 
 // для MSSQL следует использовать System.DateUtils.ISO8601ToDate и TryISO8601ToDate
 function DateToStrOpeka(const aDateTme: TDate): string;
-function StrToDateOpeka(const aDateTme: string): TDate;
-function DateTimeUTCToStrGMT(const aDateTme: TDateTime): string;
-function StrGMTToUTCDateTime(const aDateTme: string): TDateTime;
-function OpekaUTC2MSecGMT(const aValue: TDateTime): Int64;
-function OpekaMSecGMT2UTC(const aValue: Int64): TDateTime;
 function OpekaMSecGMT2GMT(const aValue: Int64): TDateTime;
 
 implementation
 
-uses XMLIntf, XMLDoc, ComObj, ActiveX, JclTimeZones, JclDateTime, DateUtils;
+uses XMLIntf, XMLDoc, ComObj, ActiveX, DateUtils;
 
 function CreateGuid: string;
 var
@@ -71,67 +66,6 @@ begin
   FormatSettings.DateSeparator := '/';
   Result := FormatDateTime('yyyy/mm/dd', aDateTme);
   FormatSettings.DateSeparator := zDateSeparator;
-end;
-
-function StrToDateOpeka(const aDateTme: string): TDate;
-var
-  zDateSeparator: char;
-  zShortDateFormat: string;
-begin
-  zDateSeparator := FormatSettings.DateSeparator;
-  zShortDateFormat := FormatSettings.ShortDateFormat;
-  FormatSettings.DateSeparator := '/';
-  FormatSettings.ShortDateFormat := 'yyyy/mm/dd';
-  Result := DateTimeToLocalDateTime(StrToDateTime(aDateTme));
-  FormatSettings.ShortDateFormat := zShortDateFormat;
-  FormatSettings.DateSeparator := zDateSeparator;
-end;
-
-// на входе - время по UTC и преобразуем его ко времени по Гринвичу
-function DateTimeUTCToStrGMT(const aDateTme: TDateTime): string;
-var
-  zDateSeparator: char;
-  zTimeSeparator: char;
-begin
-  zDateSeparator := FormatSettings.DateSeparator;
-  zTimeSeparator := FormatSettings.TimeSeparator;
-  FormatSettings.DateSeparator := '/';
-  FormatSettings.TimeSeparator := ':';
-  Result := FormatDateTime('yyyy/mm/dd hh:nn:ss.z', LocalDateTimeToDateTime(aDateTme));
-  FormatSettings.TimeSeparator := zTimeSeparator;
-  FormatSettings.DateSeparator := zDateSeparator;
-end;
-
-// на входе - время по UTC и преобразуем его к времени по Гринвичу
-function StrGMTToUTCDateTime(const aDateTme: string): TDateTime;
-var
-  zDateSeparator: char;
-  zTimeSeparator: char;
-  zShortDateFormat, zShortTimeFormat: string;
-begin
-  zDateSeparator := FormatSettings.DateSeparator;
-  zTimeSeparator := FormatSettings.TimeSeparator;
-  zShortDateFormat := FormatSettings.ShortDateFormat;
-  zShortTimeFormat := FormatSettings.ShortTimeFormat;
-  FormatSettings.DateSeparator := '/';
-  FormatSettings.TimeSeparator := ':';
-  FormatSettings.ShortDateFormat := 'yyyy/mm/dd';
-  FormatSettings.ShortTimeFormat := 'hh24:mi:ss';
-  Result := DateTimeToLocalDateTime(StrToDateTime(aDateTme));
-  FormatSettings.ShortDateFormat := zShortDateFormat;
-  FormatSettings.ShortTimeFormat := zShortTimeFormat;
-  FormatSettings.TimeSeparator := zTimeSeparator;
-  FormatSettings.DateSeparator := zDateSeparator;
-end;
-
-function OpekaUTC2MSecGMT(const aValue: TDateTime): Int64;
-begin
-  Result := MilliSecondsBetween(LocalDateTimeToDateTime(aValue), EncodeDate(1970, 1, 1))
-end;
-
-function OpekaMSecGMT2UTC(const aValue: Int64): TDateTime;
-begin
-  Result := DateTimeToLocalDateTime(EncodeDate(1970, 1, 1) + aValue * (1.0 / MSecsPerDay));
 end;
 
 function OpekaMSecGMT2GMT(const aValue: Int64): TDateTime;

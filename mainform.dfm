@@ -28,10 +28,6 @@ object MainFormExtrapolation: TMainFormExtrapolation
     TabOrder = 0
     object tsData: TTabSheet
       Caption = #1044#1072#1085#1085#1099#1077' '#1076#1083#1103' '#1086#1073#1091#1095#1077#1085#1080#1103
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object sgDataTeachingSrc: TStringGrid
         Left = 0
         Top = 0
@@ -60,10 +56,6 @@ object MainFormExtrapolation: TMainFormExtrapolation
     object tsPrediction: TTabSheet
       Caption = #1055#1088#1077#1076#1089#1082#1072#1079#1072#1085#1080#1077
       ImageIndex = 1
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Splitter2: TSplitter
         Left = 1573
         Top = 0
@@ -115,10 +107,6 @@ object MainFormExtrapolation: TMainFormExtrapolation
     object tsPreferences: TTabSheet
       Caption = #1053#1072#1089#1090#1088#1086#1081#1082#1080
       ImageIndex = 2
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object vleNeuroPreferences: TValueListEditor
         Left = 0
         Top = 0

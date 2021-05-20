@@ -178,8 +178,19 @@ object MainFormExtrapolation: TMainFormExtrapolation
       OnClick = NInsertAtPredictionClick
     end
     object NTeaching: TMenuItem
-      Caption = #1054#1073#1091#1095#1080#1090#1100
-      OnClick = NTeachingClick
+      Caption = #1054#1073#1091#1095#1077#1085#1080#1077
+      object NTeachingStart: TMenuItem
+        Caption = #1057#1090#1072#1088#1090
+        OnClick = NTeachingClick
+      end
+      object NTeachingSaveTo: TMenuItem
+        Caption = #1057#1086#1093#1088#1072#1085#1080#1090#1100'...'
+        OnClick = NTeachingSaveToClick
+      end
+      object NTeachingLoadFrom: TMenuItem
+        Caption = #1047#1072#1075#1088#1091#1079#1080#1090#1100'...'
+        OnClick = NTeachingLoadFromClick
+      end
     end
     object NSolve: TMenuItem
       Caption = #1054#1073#1088#1072#1073#1086#1090#1072#1090#1100
@@ -199,5 +210,16 @@ object MainFormExtrapolation: TMainFormExtrapolation
       Caption = #1057#1082#1086#1087#1080#1088#1086#1074#1072#1090#1100' '#1088#1077#1079#1091#1083#1100#1090#1072#1090#1099
       OnClick = NCopyResultsClick
     end
+  end
+  object SaveDialog: TSaveDialog
+    Options = [ofHideReadOnly, ofPathMustExist, ofEnableSizing]
+    Left = 548
+    Top = 88
+  end
+  object OpenDialog: TOpenDialog
+    DefaultExt = 'neuro'
+    Options = [ofReadOnly, ofHideReadOnly, ofPathMustExist, ofFileMustExist, ofEnableSizing]
+    Left = 548
+    Top = 136
   end
 end

@@ -20,7 +20,7 @@ function StartTrainLBFS_MT(const aNeuronFileName: string; lXY: TReal2DArray; con
 
 implementation
 
-uses Vcl.Forms, TeachingProgressUnit, JclSysInfo;
+uses Vcl.Forms, TeachingProgressUnit;
 
 function GetProcessorsCount: Integer;
 var
